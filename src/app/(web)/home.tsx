@@ -1,5 +1,6 @@
 import BookingModal from "@/components/booking/BookingModal";
 import DateSelector from "@/components/booking/DateSelector";
+import { createBooking } from "@/features/booking/api";
 import { getTodayDate } from "@/utils/date";
 import { useState } from "react";
 import { View } from "react-native";
@@ -22,11 +23,20 @@ export default function Home() {
 
       </View>
 
+
       <BookingModal
         visible={showModal}
-        onClose={() => setShowModal(false)}
-        onSubmit={(data) => console.log(data)}
-      />
+        date={date}
+      onClose={() => setShowModal(false)}
+      onSubmit={async (data) => {
+        await createBooking({
+          ...data,
+          date,
+        });
+        console.log("✅ booking saved");
+      }}
+/>
+
 
     </SafeAreaView>
   );

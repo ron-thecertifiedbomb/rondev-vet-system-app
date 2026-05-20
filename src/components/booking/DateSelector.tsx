@@ -15,7 +15,6 @@ export default function DateSelector({
 }: Props) {
     return (
         <View>
-            {/* TITLE */}
             <Text className="text-hero text-text-primary font-semibold mb-2">
                 Book Appointment
             </Text>
@@ -24,9 +23,9 @@ export default function DateSelector({
                 Select a date to schedule your pet’s visit.
             </Text>
 
-            {/* SELECTED DATE */}
+            {/* ✅ Selected Date */}
             <View className="mt-4 mb-6">
-                <Text className="text-xs text-text-muted uppercase tracking-wide mb-1">
+                <Text className="text-xs text-text-muted uppercase mb-1">
                     Selected Date
                 </Text>
 
@@ -35,7 +34,7 @@ export default function DateSelector({
                 </Text>
             </View>
 
-            {/* CALENDAR */}
+            {/* ✅ Calendar */}
             <View className="bg-surface border border-border rounded-xl p-4">
                 <Calendar
                     current={date}
@@ -47,26 +46,15 @@ export default function DateSelector({
                             selectedTextColor: "#ffffff",
                         },
                     }}
-                    theme={{
-                        backgroundColor: "#ffffff",
-                        calendarBackground: "#ffffff",
-                        textSectionTitleColor: "#6b7280",
-                        monthTextColor: "#111827",
-                        dayTextColor: "#111827",
-                        todayTextColor: "#111827",
-                        textDisabledColor: "#d1d5db",
-                        arrowColor: "#6b7280",
-                    }}
                 />
             </View>
 
-            {/* CTA */}
             {onContinue && (
                 <TouchableOpacity
                     onPress={onContinue}
                     className="bg-surfaceSoft border border-border rounded-xl py-4 mt-6"
                 >
-                    <Text className="text-text-primary text-center font-medium">
+                    <Text className="text-center text-text-primary font-medium">
                         Continue Booking
                     </Text>
                 </TouchableOpacity>
@@ -74,4 +62,3 @@ export default function DateSelector({
         </View>
     );
 }
-``

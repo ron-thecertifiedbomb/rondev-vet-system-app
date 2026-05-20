@@ -21,11 +21,20 @@ export default function Home() {
                     onContinue={() => setShowModal(true)}
                 />
             </View>
+
             <BookingModal
                 visible={showModal}
-                onClose={() => setShowModal(false)}
-                onSubmit={(data) => console.log(data)}
-            />
+                date={date}
+            onClose={() => setShowModal(false)}
+            onSubmit={async (data) => {
+                await createBooking({
+                    ...data,
+                    date,
+                });
+                console.log("✅ booking saved");
+            }}
+/>
+
 
 
 
