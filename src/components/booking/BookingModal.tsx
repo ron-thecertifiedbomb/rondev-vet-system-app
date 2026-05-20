@@ -5,14 +5,16 @@ import {
     TouchableOpacity,
     TextInput,
 } from "react-native";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Picker } from "@react-native-picker/picker";
-import { getSlots } from "@/features/booking/api";
+
+import { Slot } from "@/hooks/useBookingSystem";
 import { formatTime } from "@/utils/date";
 
 type Props = {
     visible: boolean;
     date: string;
+    slots: Slot[];
     onClose: () => void;
     onSubmit: (data: {
         ownerName: string;
@@ -25,23 +27,14 @@ type Props = {
 export default function BookingModal({
     visible,
     date,
+    slots,
     onClose,
     onSubmit,
 }: Props) {
     const [ownerName, setOwnerName] = useState("");
     const [petName, setPetName] = useState("");
     const [serviceType, setServiceType] = useState("");
-    const [slots, setSlots] = useState<any[]>([]);
     const [selectedTime, setSelectedTime] = useState("");
-
-    useEffect(() => {
-        if (visible) loadSlots();
-    }, [visible, date]);
-
-    const loadSlots = async () => {
-        const data = await getSlots(date);
-        setSlots(data);
-    };
 
     return (
         <Modal visible={visible} transparent animationType="fade">
@@ -52,7 +45,6 @@ export default function BookingModal({
                         Complete Booking
                     </Text>
 
-                    {/* ✅ Dropdown */}
                     <Text className="text-xs text-text-muted mb-2">
                         Select Time
                     </Text>
@@ -69,47 +61,40 @@ export default function BookingModal({
                                 .map((slot) => (
                                     <Picker.Item
                                         key={slot.time}
-                                        label={formatTime(slot.time)} 
-                            value={slot.time}
-                  />
-                ))}
+                                        label={formatTime(slot.time)}
+                                        value={slot.time}
+                                    />
+                                ))}
                         </Picker>
                     </View>
 
-                    {/* ✅ Inputs */}
                     <TextInput
                         placeholder="Owner Name"
                         value={ownerName}
                         onChangeText={setOwnerName}
-                        placeholderTextColor="#9ca3af"
-                        className="bg-surface border border-border rounded-xl px-4 py-3 mb-3 text-text-primary"
+                        className="bg-surface border border-border rounded-xl px-4 py-3 mb-3"
                     />
 
                     <TextInput
                         placeholder="Pet Name"
                         value={petName}
                         onChangeText={setPetName}
-                        placeholderTextColor="#9ca3af"
-                        className="bg-surface border border-border rounded-xl px-4 py-3 mb-3 text-text-primary"
+                        className="bg-surface border border-border rounded-xl px-4 py-3 mb-3"
                     />
 
                     <TextInput
                         placeholder="Service Type"
                         value={serviceType}
                         onChangeText={setServiceType}
-                        placeholderTextColor="#9ca3af"
-                        className="bg-surface border border-border rounded-xl px-4 py-3 mb-4 text-text-primary"
+                        className="bg-surface border border-border rounded-xl px-4 py-3 mb-4"
                     />
 
-                    {/* ✅ Buttons */}
                     <View className="flex-row gap-3">
                         <TouchableOpacity
                             onPress={onClose}
-                            className="flex-1 border border-border rounded-lg py-3"
+                            className="flex-1 border rounded-lg py-3"
                         >
-                            <Text className="text-center text-text-secondary">
-                                Cancel
-                            </Text>
+                            <Text className="text-center">Cancel</Text>
                         </TouchableOpacity>
 
                         <TouchableOpacity
@@ -129,9 +114,9 @@ export default function BookingModal({
 
                                 onClose();
                             }}
-                            className="flex-1 bg-surfaceSoft border border-border rounded-lg py-3"
+                            className="flex-1 border rounded-lg py-3"
                         >
-                            <Text className="text-center text-text-primary font-medium">
+                            <Text className="text-center font-medium">
                                 Confirm
                             </Text>
                         </TouchableOpacity>

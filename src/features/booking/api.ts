@@ -1,13 +1,18 @@
+import { Slot } from "@/features/booking/types";
 import { API } from "@/utils/config/api";
 
-export type Slot = {
-  time: string;
-  available: boolean;
+
+
+export type SlotsResponse = {
+  now: string;
+  slots: Slot[];
 };
 
-export const getSlots = async (date: string): Promise<Slot[]> => {
+export const getSlots = async (date: string): Promise<SlotsResponse> => {
   try {
-    const res = await fetch(`${API}/appointments/slots?date=${date}`);
+    const res = await fetch(`${API}/appointments/slots?date=${date}`, {
+      cache: "no-store", 
+    });
 
     if (!res.ok) {
       throw new Error("Failed to fetch slots");
