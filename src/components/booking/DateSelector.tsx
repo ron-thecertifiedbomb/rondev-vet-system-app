@@ -36,8 +36,10 @@ export default function DateSelector({
 
             {/* ✅ Calendar */}
             <View className="bg-surface border border-border rounded-xl p-4">
+
                 <Calendar
                     current={date}
+                    minDate={new Date().toLocaleDateString("en-CA")}
                     onDayPress={(day) => onDateChange(day.dateString)}
                     markedDates={{
                         [date]: {
@@ -47,6 +49,7 @@ export default function DateSelector({
                         },
                     }}
                 />
+
             </View>
 
             {onContinue && (
