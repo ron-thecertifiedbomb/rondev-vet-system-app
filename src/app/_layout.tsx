@@ -2,5 +2,5 @@ import "../global.css"; // Adjust the path based on where your global.css is loc
 import { Stack } from "expo-router";
 
 export default function RootLayout() {
-  return <Stack />;
+  return <Stack screenOptions={{ headerShown: false }} />;
 }
