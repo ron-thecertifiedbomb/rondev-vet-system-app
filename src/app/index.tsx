@@ -1,82 +1,65 @@
-import { StatusBar } from "expo-status-bar";
-import { Image, Text, TouchableOpacity, View } from "react-native";
+import { useEffect, useState } from "react";
+import { Text, TouchableOpacity, View } from "react-native";
+import { API } from "../../utils/api";
 
-const ACCENT = "#00e0ff";
+
 
 export default function HomeScreen() {
+
+  type Slot = {
+    time: string;
+    available: boolean;
+  };
+
+  const [slots, setSlots] = useState<Slot[]>([]);
+
+
+
+
+  const fetchSlots = async () => {
+    console.log("Using API:", API); // DEBUG
+
+    const res = await fetch(
+      `${API}/appointments/slots?date=2026-05-20`
+    );
+
+    const data = await res.json();
+    setSlots(data);
+  };
+
+
+  useEffect(() => {
+    fetchSlots();
+  }, []);
+
   return (
-    <View className="flex-1 bg-black px-6 justify-center">
-      <StatusBar style="light" />
-      {/* Top Micro Label */}
-      <Text
-        className="text-[10px] tracking-[3px] mb-6"
-        style={{ color: ACCENT }}
-      >
-        AI • AUTOMATION • SYSTEMS
+    <View className="flex-1 bg-white p-5">
+
+      {/* Title */}
+      <Text className="text-xl font-bold mb-4">
+        🐾 Vet Booking
       </Text>
 
-      {/* Logo */}
-      {/* <Image
-        source={require('@/assets/images/rondevlogo.png')}
-        className="w-20 h-20 mb-6"
-        resizeMode="contain"
-      /> */}
-
-      {/* Headline (dominant like your reference) */}
-      <Text className="text-[36px] leading-tight font-black text-neutral-200">
-        Building scalable{"\n"}
-        software systems{"\n"}
-        <Text className="text-neutral-400">
-          for real-world businesses.
-        </Text>
-      </Text>
-
-      {/* Description */}
-      <Text className="text-neutral-500 mt-6 text-sm leading-relaxed">
-        Rondev helps businesses automate operations, manage bookings,
-        and streamline workflows using modern digital systems and
-        AI-assisted tools — built to scale with your growth.
-      </Text>
-
-      {/* Feature Strip (subtle, not pills anymore) */}
-      <View className="flex-row flex-wrap gap-x-4 gap-y-2 mt-6">
-        {[
-          "Bookings",
-          "Automation",
-          "AI Workflows",
-          "Dashboards",
-        ].map((item) => (
-          <Text
-            key={item}
-            className="text-xs text-neutral-600"
-          >
-            {item}
-          </Text>
-        ))}
-      </View>
-
-      {/* CTAs */}
-      <View className="flex-row items-center gap-3 mt-10">
-
-        {/* Primary */}
+      {/* Slots */}
+      {slots.map((slot) => (
         <TouchableOpacity
-          activeOpacity={0.85}
-          style={{ backgroundColor: ACCENT }}
-          className="px-5 py-4 rounded-xl"
+          key={slot.time}
+          disabled={!slot.available}
+          className={`p-4 mb-2 rounded-lg ${slot.available
+              ? "bg-cyan-500"
+              : "bg-gray-300"
+            }`}
         >
-          <Text className="text-black font-semibold text-xs tracking-wide">
-            Initiate Project Request
+          <Text
+            className={`text-base ${slot.available
+                ? "text-white"
+                : "text-gray-500"
+              }`}
+          >
+            {slot.time}
           </Text>
         </TouchableOpacity>
-
-        {/* Secondary */}
-        <TouchableOpacity activeOpacity={0.7}>
-          <Text className="text-neutral-500 text-xs">
-            View demos →
-          </Text>
-        </TouchableOpacity>
-
-      </View>
+      ))}
     </View>
   );
 }

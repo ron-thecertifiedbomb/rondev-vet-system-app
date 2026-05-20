@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "rondev-mobile-app",
-    "slug": "rondev-mobile-app",
+    "name": "rondev-vet-system-app",
+    "slug": "rondev-vet-system-app",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
@@ -40,11 +40,6 @@
     "experiments": {
       "typedRoutes": true
     },
-    "extra": {
-      "router": {},
-      "eas": {
-        "projectId": "dd313f06-ac18-41d5-a80c-24eec3ae146b"
-      }
-    }
+
   }
 }
