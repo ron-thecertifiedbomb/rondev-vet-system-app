@@ -1,7 +1,7 @@
 import BookingModal from "@/components/booking/BookingModal";
 import DateSelector from "@/components/booking/DateSelector";
-import { useBookingBootstrap } from "@/hooks/useBookingBootstrap";
-import { useCreateBooking } from "@/hooks/useCreateBooking";
+import { useBookingBootstrap } from "@/hooks/booking/useBookingBootstrap";
+import { useCreateBooking } from "@/hooks/booking/useCreateBooking";
 import { formatDate, getTodayDate } from "@/utils/date";
 import { useRouter } from "expo-router";
 import { useEffect, useState } from "react";
