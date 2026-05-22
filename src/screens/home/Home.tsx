@@ -47,7 +47,7 @@ export default function Home() {
         );
     }
     return (
-        <View className="flex-1 bg-background items-center ">
+        <View className="flex-1 bg-background items-center px-6">
                 <View className="w-full max-w-md pt-24">
                     <View className="mb-6">
                         <Text className="text-2xl font-semibold text-text-primary">

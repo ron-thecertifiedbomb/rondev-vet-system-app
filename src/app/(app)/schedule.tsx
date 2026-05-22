@@ -1,5 +1,5 @@
-import BookingSuccess from "@/screens/booking/BookingSuccess";
+import Schedule from "@/screens/schedule/Schedule";
 
-export default function BookingSuccessScreen() {
-    return BookingSuccess;
+export default function ScheduleScreen() {
+    return <Schedule />;
 }
