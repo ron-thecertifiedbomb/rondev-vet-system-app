@@ -1,14 +1,29 @@
 // src/app/index.tsx
 
-import { Platform } from "react-native";
 import { Redirect } from "expo-router";
+import { Platform } from "react-native";
 
 export default function Index() {
-  // ✅ temporary routing test
-  const isLoggedIn = true;
-  const isAdmin = false;
+  // ✅ retrieve token
+  const accessToken =
+    typeof window !== "undefined"
+      ? localStorage.getItem("access_token")
+      : null;
 
-  // ✅ not logged in
+  // ✅ retrieve user
+  const storedUser =
+    typeof window !== "undefined"
+      ? localStorage.getItem("user")
+      : null;
+
+  const user = storedUser
+    ? JSON.parse(storedUser)
+    : null;
+
+  const isLoggedIn = !!accessToken;
+  const isAdmin = user?.role === "ADMIN";
+
+  // ✅ not authenticated
   if (!isLoggedIn) {
     return <Redirect href="/(auth)/login" />;
   }
@@ -31,8 +46,8 @@ export default function Index() {
     <Redirect
       href={
         Platform.OS === "web"
-          ? "/(web)/dashboard"
-          : "/(app)/dashboard"
+          ? "/(web)/home"
+          : "/(app)/home"
       }
     />
   );
