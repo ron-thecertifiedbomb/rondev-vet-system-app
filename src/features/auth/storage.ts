@@ -1,11 +1,16 @@
 // src/features/auth/storage.ts
+// src/features/auth/storage.ts
 
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Platform } from "react-native";
 
+function isWebStorageAvailable() {
+  return typeof window !== "undefined" && typeof window.localStorage !== "undefined";
+}
+
 export async function setStorageItem(key: string, value: string) {
-  if (Platform.OS === "web") {
-    localStorage.setItem(key, value);
+  if (Platform.OS === "web" && isWebStorageAvailable()) {
+    window.localStorage.setItem(key, value);
     return;
   }
 
@@ -13,21 +18,18 @@ export async function setStorageItem(key: string, value: string) {
 }
 
 export async function getStorageItem(key: string) {
-  if (Platform.OS === "web") {
-    return localStorage.getItem(key);
+  if (Platform.OS === "web" && isWebStorageAvailable()) {
+    return window.localStorage.getItem(key);
   }
 
   return AsyncStorage.getItem(key);
 }
 
-
-
 export async function removeStorageItem(key: string) {
-  if (Platform.OS === "web") {
-    localStorage.removeItem(key);
+  if (Platform.OS === "web" && isWebStorageAvailable()) {
+    window.localStorage.removeItem(key);
     return;
   }
 
   await AsyncStorage.removeItem(key);
 }
-
