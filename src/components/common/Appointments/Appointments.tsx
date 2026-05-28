@@ -57,10 +57,11 @@ export default function Appointments() {
 
                 {/* ✅ HEADER */}
                 <View className="mb-6">
-                    <Text className="text-3xl font-semibold text-text-primary">
+
+                    <Text className="text-lg lg:text-3xl font-semibold text-text-primary">
                         My Appointments
                     </Text>
-                    <Text className="text-sm text-text-secondary mt-1">
+                    <Text className="text-xs text-text-secondary lg:mt-1">
                         Track and review your upcoming and past bookings.
                     </Text>
                 </View>

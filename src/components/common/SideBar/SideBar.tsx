@@ -167,7 +167,7 @@ export default function Sidebar({
         </View>
     );
 
-    // ✅ DESKTOP
+  
     if (!isMobile) {
         return (
             <View
@@ -183,7 +183,7 @@ export default function Sidebar({
         );
     }
 
-    // ✅ MOBILE (UPGRADED)
+   
     return (
         <>
             <Animated.View

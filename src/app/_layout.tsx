@@ -11,6 +11,6 @@ export default function RootLayout() {
       {/* <NetworkGuard allowOffline={false}> */}
         <Slot />
       {/* </NetworkGuard> */}
-    // </AuthProvider>
+     </AuthProvider>
   );
 }

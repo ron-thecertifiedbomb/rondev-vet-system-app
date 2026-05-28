@@ -1,10 +1,9 @@
 // src/app/(web)/_layout.tsx
-
 import Loader from "@/components/common/Loader/Loader";
 import Sidebar from "@/components/common/SideBar/SideBar";
 import { useAuth } from "@/features/auth/providers/AuthProvider";
 import { userNav } from "@/utils/config/sidebar/sidebar";
-import { Redirect, Stack } from "expo-router";
+import { Redirect, Slot, Stack } from "expo-router";
 import { useRef, useState } from "react";
 import {
   Animated,
@@ -40,7 +39,7 @@ export default function WebUserLayout() {
   if (user.role === "ADMIN") return <Redirect href="/(admin-web)/dashboard" />;
 
   return (
-    <View style={{ flex: 1, flexDirection: "row" }}> {/* ✓ plain View, no SafeAreaView */}
+    <View style={{ flex: 1, flexDirection: "row" }}> 
       <Sidebar
         isMobile={isMobile}
         translateX={translateX}
@@ -66,7 +65,7 @@ export default function WebUserLayout() {
             </Pressable>
           </View>
         )}
-        <Stack screenOptions={{ headerShown: false }} />
+        <Slot />
       </View>
     </View>
   );

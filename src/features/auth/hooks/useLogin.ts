@@ -1,19 +1,16 @@
 // src/features/auth/hooks/useLogin.ts
 
-import { useState } from "react";
-import Toast from "react-native-toast-message";
-import { api } from "@/utils/api";
-import { logger } from "@/utils/logger";
-import { setStorageItem } from "@/features/auth/storage";
 import { useAuth } from "@/features/auth/providers/AuthProvider"; // ✓ add
 import { LoginPayload, LoginResponse } from "@/features/auth/types";
+import { logger } from "@/utils/logger";
+import { useState } from "react";
 
 export function useLogin() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [message, setMessage] = useState<string | null>(null);
 
-  const { setSession } = useAuth(); // ✓ add
+  const { login: authLogin } = useAuth(); // ✓ Consume login from provider
 
   const login = async (
     payload: LoginPayload,
@@ -25,35 +22,18 @@ export function useLogin() {
 
       logger.info("Attempting login", { email: payload.email });
 
-      const response = await api<LoginResponse>("/api/vet/auth/login", {
-        method: "POST",
-        body: JSON.stringify(payload),
-      });
+      const response = await authLogin(payload); // Call the AuthProvider's login function
 
-      const normalizedUser = {
-        ...response.user,
-        userId: response.user.userId || response.user.id,
-      };
-
-      // ✓ save to storage
-      await setStorageItem("access_token", response.access_token);
-      await setStorageItem("user", JSON.stringify(normalizedUser));
-
-      // ✓ update AuthProvider state so layouts re-render immediately
-      await setSession(normalizedUser, response.access_token);
-
-      logger.info("Login successful", normalizedUser);
-
-      setMessage(response.message);
-
-      Toast.show({ type: "success", text1: response.message });
-
+      // AuthProvider's login handles session, storage, and toasts.
+      // Update local message if response is successful.
+      if (response) {
+        setMessage(response.message);
+      }
       return response;
     } catch (err: any) {
       logger.error("Login failed", err);
       const errorMessage = err?.message || "Failed to login";
       setError(errorMessage);
-      Toast.show({ type: "error", text1: errorMessage });
       return null;
     } finally {
       setLoading(false);

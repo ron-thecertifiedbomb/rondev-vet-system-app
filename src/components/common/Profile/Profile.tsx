@@ -58,7 +58,7 @@ export default function Profile() {
 
                 {/* ✅ HEADER */}
                 <View className="mb-6">
-                    <Text className="text-3xl font-semibold text-text-primary">
+                    <Text className="text-lg lg:text-3xl font-semibold text-text-primary">
                         My Profile
                     </Text>
                     <Text className="text-sm text-text-secondary mt-1">

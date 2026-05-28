@@ -1,20 +1,17 @@
 import BookingModal from "@/components/booking/BookingModal";
 import DateSelector from "@/components/booking/DateSelector";
 import Loader from "@/components/common/Loader/Loader";
-
 import { useCreateAppointment } from "@/features/appointment/hooks/useCreateAppointment";
 import { useBookingBootstrap } from "@/hooks/appointments/useBookingBootstrap";
-
-import { parseServerNow } from "@/utils/dateandtime/serverTime";
 import { getTodayDate } from "@/utils/dateandtime/date";
-
+import { parseServerNow } from "@/utils/dateandtime/serverTime";
 import { useRouter } from "expo-router";
 import { useEffect, useState } from "react";
 import { ScrollView, Text, View } from "react-native";
 
 export default function Home() {
-    const router = useRouter();
 
+    const router = useRouter();
     const [date, setDate] = useState(getTodayDate());
     const [showModal, setShowModal] = useState(false);
     const [modalChecking, setModalChecking] = useState(false);
@@ -26,7 +23,6 @@ export default function Home() {
         serverNow,
     } = useBookingBootstrap(date);
 
-    // ✅ ✅ ✅ SINGLE SOURCE OF TIME
     const now = parseServerNow(serverNow);
 
     const {
@@ -65,13 +61,11 @@ export default function Home() {
         setModalChecking(false);
     }, [showModal, loading]);
 
-    // ✅ Loading screen
     if (initialLoading) {
         return <Loader fullScreen />;
     }
 
     return (
-
         <ScrollView
             className="flex-1 bg-background"
             contentContainerClassName="items-center px-6 pb-10"
@@ -82,7 +76,7 @@ export default function Home() {
                 {/* ✅ HEADER */}
                 <View className="mb-6">
 
-                    <Text className="text-3xl font-semibold text-text-primary">
+                    <Text className="text-lg lg:text-3xl font-semibold text-text-primary">
                         Book an Appointment
                     </Text>
                     <Text className="text-sm text-text-secondary mt-1">
@@ -162,7 +156,7 @@ export default function Home() {
                         }, 600);
 
                     } catch {
-                        // handled in hook
+                    
                     }
                 }}
             />

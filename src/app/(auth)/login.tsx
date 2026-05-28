@@ -1,7 +1,7 @@
 // src/app/(auth)/login.tsx
 
 import ScreenContainer from "@/components/common/layout/ScreenContainer";
-import { useLogin } from "@/features/auth/hooks/useLogin";
+import { useAuth } from "@/features/auth/providers/AuthProvider";
 import { showAlert } from "@/hooks/crossPlatformAlert";
 import { Ionicons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
@@ -26,53 +26,37 @@ export default function Login() {
     const [passwordError, setPasswordError] = useState<string | null>(null);
     const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
-    const { login, loading } = useLogin();
+    const { login, loading } = useAuth();
 
     const handleLogin = async () => {
         setEmailError(null);
         setPasswordError(null);
-
         let hasError = false;
-
         if (!email) {
             setEmailError("Email is required");
             hasError = true;
         }
-
         if (!password) {
             setPasswordError("Password is required");
             hasError = true;
         }
-
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (email && !emailRegex.test(email)) {
             setEmailError("Invalid email format");
             hasError = true;
         }
-
         if (hasError) return;
 
-        const response = await login({ email, password });
+        try {
+            const response = await login({ email, password });
 
-        if (!response) {
-            showAlert("Login Failed", "Invalid email or password. Please try again.");
-            return;
-        }
-
-        const isWeb = Platform.OS === "web";
-
-        const handleSuccess = () => {
-            if (response.user.role === "ADMIN") {
-                router.replace(
-                    isWeb ? "/(admin-web)/dashboard" : "/(admin-app)/(tabs)/dashboard"
-                );
-                return;
+            if (response) {
+                showAlert("", response.message);
             }
-            router.replace(isWeb ? "/(web)/web-home" : "/(app)/(tabs)/home");
-        };
-
-        showAlert("Login Successful", "Welcome back!", handleSuccess);
-    }; // ✓ handleLogin closes here
+        } catch (err: any) {
+            showAlert("", err.message);
+        }
+    };
 
     return (
         <ScreenContainer>

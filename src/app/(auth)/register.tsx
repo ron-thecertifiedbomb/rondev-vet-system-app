@@ -108,14 +108,12 @@ export default function Registration() {
                 router.replace(
                     isWeb
                         ? "/(admin-web)/dashboard"
-                        : "/(admin-app)/dashboard"
+                        : "/(admin-app)/(tabs)/dashboard"
                 );
                 return;
             }
-
-            router.replace(isWeb ? "/(web)/home" : "/(app)/home");
+            router.replace(isWeb ? "/(web)/web-home" : "/(app)/(tabs)/home");
         };
-
         showAlert(
             "Success",
             "Account created successfully!",
