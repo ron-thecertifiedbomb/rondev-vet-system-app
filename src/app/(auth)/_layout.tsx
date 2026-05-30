@@ -4,7 +4,7 @@
 
 import Loader from "@/components/common/Loader/Loader";
 import { useAuth } from "@/features/auth/providers/AuthProvider";
-import { routes } from "@/utils/routes/routes";
+import { routes } from "@/utils/routes/constants/routes";
 import { Redirect, Slot } from "expo-router";
 import { Platform } from "react-native";
 
@@ -28,4 +28,3 @@ export default function AuthLayout() {
     // ✅ If NOT authenticated → allow auth pages (login/register)
     return <Slot />;
 }
-``

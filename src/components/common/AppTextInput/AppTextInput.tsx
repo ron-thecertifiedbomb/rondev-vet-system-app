@@ -26,7 +26,7 @@ export default function AppTextInput({
     onRightIconPress,
 }: AppTextInputProps) {
     return (
-        <View>
+        <View className="mb-2">
 
             {/* LABEL */}
             <Text className="text-sm font-medium text-text-primary mb-2">
@@ -60,7 +60,7 @@ export default function AppTextInput({
 
             {/* ERROR */}
 
-            <Text className="text-red-500 text-xs mt-2 mb-4 min-h-[16px] ">
+            <Text className="text-red-500 text-xs mt-1 min-h-[16px] ">
                 {error ?? ""}
             </Text>
 

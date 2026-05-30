@@ -1,10 +1,13 @@
 // src/app/(auth)/login.tsx
 
+
+import LoginForm from "@/components/authentication/forms/LoginForm";
 import ScreenContainer from "@/components/common/layout/ScreenContainer";
-import LoginForm from "@/features/admin/forms/loginForm";
+
 
 import { useAuth } from "@/features/auth/providers/AuthProvider";
 import { showAlert } from "@/hooks/crossPlatformAlert";
+import { getRouteByRole } from "@/utils/routes/routeResolver";
 import { useRouter } from "expo-router";
 import {
     KeyboardAvoidingView,
@@ -23,12 +26,19 @@ export default function Login() {
     const { login, loading } = useAuth();
 
     // ✅ LOGIC HERE (clean separation)
+
     const handleLogin = async ({ email, password }: LoginPayload) => {
         try {
             const response = await login({ email, password });
 
             if (response) {
                 showAlert("", response.message);
+
+                // ✅ get role + redirect
+                const role = response.user.role; // from backend
+                const route = getRouteByRole(role, "app"); // or "web"
+
+                router.replace(route); // ✅ important (no back)
             }
         } catch (err: any) {
             showAlert("", err.message);
