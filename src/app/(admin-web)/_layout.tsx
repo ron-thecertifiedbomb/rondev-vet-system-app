@@ -11,7 +11,7 @@ import { Animated, Pressable, Text, useWindowDimensions, View } from "react-nati
 import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function AdminWebLayout() {
-    const { user, loading } = useAuth();
+    const { user, loading, isAuthenticated } = useAuth();
 
     const { width } = useWindowDimensions();
     const isMobile = width < 768;
@@ -28,16 +28,17 @@ export default function AdminWebLayout() {
         }).start();
         setSidebarOpen(!sidebarOpen);
     };
+    if (Platform.OS !== "web") return <Redirect href="/(admin-app)/(tabs)/dashboard" />;
 
+    if (!user && !isAuthenticated) return <Redirect href="/(auth)/login" />;
+
+    if (user?.role !== "ADMIN") return <Redirect href="/(web)/web-home" />;
+
+    
     if (loading) return <Loader fullScreen={false} size="small" />;
 
     // ✓ Kick mobile users out — this group is web only
-    if (Platform.OS !== "web") return <Redirect href="/(admin-app)/(tabs)/dashboard" />;
 
-    if (!user) return <Redirect href="/(auth)/login" />;
-
-    // ✓ Fixed path — /(web)/web-home not /(web)/home
-    if (user.role !== "ADMIN") return <Redirect href="/(web)/web-home" />;
 
     return (
         <SafeAreaView style={{ flex: 1, flexDirection: "row" }}>

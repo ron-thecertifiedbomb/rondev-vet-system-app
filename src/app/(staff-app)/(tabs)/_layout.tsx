@@ -32,11 +32,12 @@ export default function AdminAppTabsLayout() {
                 },
             }}
         >
+
             <Tabs.Screen
-                name="dashboard"
+                name="home"
                 options={{
-                    title: "Dashboard",
-                    tabBarIcon: icon("grid-outline"),
+                    title: "Home",
+                    tabBarIcon: icon("home-outline"),
                 }}
             />
 
@@ -44,23 +45,23 @@ export default function AdminAppTabsLayout() {
                 name="appointments"
                 options={{
                     title: "Appointments",
-                    tabBarIcon: icon("time-outline"),
+                    tabBarIcon: icon("calendar-outline"),
                 }}
             />
 
             <Tabs.Screen
-                name="users"
+                name="patients"
                 options={{
-                    title: "Users",
-                    tabBarIcon: icon("people-outline"),
-                }}
-            />
-
-            <Tabs.Screen
-                name="pets"
-                options={{
-                    title: "Pets",
+                    title: "Patients",
                     tabBarIcon: icon("paw-outline"),
+                }}
+            />
+
+            <Tabs.Screen
+                name="queue"
+                options={{
+                    title: "Queue",
+                    tabBarIcon: icon("list-outline"),
                 }}
             />
 
@@ -71,6 +72,7 @@ export default function AdminAppTabsLayout() {
                     tabBarIcon: icon("person-outline"),
                 }}
             />
+
         </Tabs>
     );
 }

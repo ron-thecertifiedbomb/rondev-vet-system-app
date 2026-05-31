@@ -1,9 +1,7 @@
 import { Platform } from "react-native";
-
 import { routes } from "@/utils/routes/constants/routes";
 
 type Role = "USER" | "ADMIN" | "STAFF";
-
 type PlatformType = "web" | "app";
 
 type RouteOptions = {
@@ -15,27 +13,32 @@ function getPlatform(): PlatformType {
   return Platform.OS === "web" ? "web" : "app";
 }
 
-// ✅ centralized auth + role routing
+// ✅ handle mixed route types
+function resolveRoute(route: any, platform: PlatformType): string {
+  if (typeof route === "string") return route;
+  return route[platform];
+}
+
+// ✅ centralized routing
 export function getRouteByRole(
   role?: Role,
   { isAuthenticated = false }: RouteOptions = {},
 ) {
   const platform = getPlatform();
 
-  // ✅ guest/public route
   if (!isAuthenticated || !role) {
-    return routes.public[platform];
+    return resolveRoute(routes.public, platform);
   }
 
   switch (role) {
     case "ADMIN":
-      return routes.admin[platform];
+      return resolveRoute(routes.admin, platform);
 
     case "STAFF":
-      return routes.staff[platform];
+      return resolveRoute(routes.staff, platform);
 
     case "USER":
     default:
-      return routes.user[platform];
+      return resolveRoute(routes.user, platform);
   }
 }

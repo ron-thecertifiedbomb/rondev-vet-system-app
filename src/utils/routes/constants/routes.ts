@@ -1,7 +1,7 @@
 export const routes = {
   admin: {
     web: "/(admin-web)/dashboard",
-    app: "/(admin-app)/(tabs)/dashboard",
+    app: "/(admin-web)/dashboard",
   },
   staff: {
     web: "/(app)/(tabs)/home",

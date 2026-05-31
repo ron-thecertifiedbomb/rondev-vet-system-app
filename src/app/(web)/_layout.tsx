@@ -61,15 +61,6 @@ export default function WebUserLayout() {
     setSidebarOpen(!sidebarOpen);
   };
 
-  // ✅ loading state
-  if (isFirstLoad) {
-    return (
-      <Loader
-        fullScreen
- 
-      />
-    );
-  }
   // ✅ auth guard
   if (!isAuthenticated || !user) {
     return (
@@ -115,6 +106,15 @@ export default function WebUserLayout() {
       />
     );
   }
+  if (isFirstLoad) {
+    return (
+      <Loader
+        fullScreen
+ 
+      />
+    );
+  }
+
   return (
     <View
       style={{

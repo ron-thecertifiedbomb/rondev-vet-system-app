@@ -1,9 +1,16 @@
 export const adminNav = [
-  { label: "Home", href: "/(admin-web)/dashboard" },
-  { label: "Admin", href: "/(admin-web)/admin" },
+  { label: "Dashboard", href: "/(admin-web)/dashboard" },
+
+  { label: "Staff Management", href: "/(admin-web)/staff" },
+  { label: "Doctors", href: "/(admin-web)/doctors" },
+
+  { label: "Appointments", href: "/(admin-web)/appointments" },
+  { label: "Patients", href: "/(admin-web)/patients" },
 
   { label: "Reports", href: "/(admin-web)/reports" },
-  { label: "Stats", href: "/(admin-web)/stats" },
+  { label: "Analytics", href: "/(admin-web)/analytics" },
+
+  { label: "Settings", href: "/(admin-web)/settings" },
 ];
 
 export const userNav = [
