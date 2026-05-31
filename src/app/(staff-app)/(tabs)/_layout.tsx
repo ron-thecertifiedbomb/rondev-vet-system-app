@@ -34,7 +34,7 @@ export default function AdminAppTabsLayout() {
         >
 
             <Tabs.Screen
-                name="home"
+                name="dashboard"
                 options={{
                     title: "Home",
                     tabBarIcon: icon("home-outline"),
